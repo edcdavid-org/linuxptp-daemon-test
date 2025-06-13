@@ -1,5 +1,5 @@
-# Linuxptp Daemon for Kubernetes
-## Table of Contents
+# Linuxptp Daemon for Kubernetesddd
+## Table of Contentsdddd
 
 - [linuxptp Daemon](#linuxptp-daemon)
 - [Quick Start](#quick-start)
@@ -17,7 +17,7 @@ Both linuxptp daemon and ptp configmap are created in `openshift-ptp` namespace.
 ```
 $ kubectl create -f deploy/00-ns.yaml
 $ kubectl create -f deploy/01-sa.yaml
-$ kubectl create -f deploy/02-rbac.yaml
+$ kubectl create -f deploy/02-rbac.yamlxscwdc
 ```
 
 ### Generate linuxptp configmap data sources
