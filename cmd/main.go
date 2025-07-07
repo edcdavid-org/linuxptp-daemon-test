@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"os/signal"
 	"path/filepath"
@@ -51,7 +52,26 @@ func main() {
 	cp := &cliParams{}
 	flag.Parse()
 	flagInit(cp)
+	// Manually validate required flags
+	missing := false
+	if cp.updateInterval == 0 {
+		log.Println("Error: --update-interval is required and must be > 0")
+		missing = true
+	}
+	if cp.profileDir == "" {
+		log.Println("Error: --profile-dir is required")
+		missing = true
+	}
+	if cp.pmcPollInterval == 0 {
+		log.Println("Error: --pmc-poll-interval is required and must be > 0")
+		missing = true
+	}
 
+	if missing {
+		fmt.Println("\nUsage:")
+		flag.PrintDefaults()
+		os.Exit(1)
+	}
 	glog.Infof("resync period set to: %d [s]", cp.updateInterval)
 	glog.Infof("linuxptp profile path set to: %s", cp.profileDir)
 	glog.Infof("pmc poll interval set to: %d [s]", cp.pmcPollInterval)
