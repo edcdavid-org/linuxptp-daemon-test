@@ -45,8 +45,8 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v4
         with:
-          repository: k8snetworkplumbingwg/ptp-operator
-          ref: main
+          repository: edcdavid/ptp-operator-upstream
+          ref: add-curl-prometheus
           path: ptp-operator
       
       - name: checkout the Current SHA for the linuxptp-daemon
