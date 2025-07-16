@@ -117,8 +117,14 @@ jobs:
                 -o ConnectTimeout=30 \
                 -o TCPKeepAlive=yes \
                 fedora@"$public_ip" \
-                sudo ./ptp-operator/scripts/run-on-vm.sh "$private_ip"
-
+                "set +e; \
+                sudo ./ptp-operator/scripts/run-on-vm.sh '$private_ip'; \
+                exit_code=\$?; \
+                echo '=== Script completed with exit code:' \$exit_code '==='; \
+                echo '=== Recent system logs ==='; \
+                sudo journalctl --no-pager -n 100 --since '5 minutes ago'; \
+                echo '=== End of logs ==='; \
+                exit \$exit_code"
       - name: Cleanup - Delete EC2 instance
         if: always()  # Ensure cleanup runs even if previous steps fail
         run: |
